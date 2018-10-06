@@ -23,7 +23,7 @@ int main()
 	int screenHeight = 500;
 	InitWindow(screenWidth, screenHeight, "TESTING QUATERS");
 	SetTargetFPS(60);
-	float time = 240;
+	float time = 120;
 	ball player;
 	player.pos = { 100, 400 };
 	player.radius = 30.0;
@@ -37,9 +37,12 @@ int main()
 			{ {780,89},5,true}
 	};
 	int scoremin = 0;
-	bool add10 = false;
-	bool add150 = false;
-	bool add500 = false;
+	bool add10Lv1 = false;
+	bool add10Lv2 = false;
+	bool add150Lv1 = false;
+	bool add150Lv2 = false;
+	bool add500Lv1 = false;
+	bool add500Lv2 = false;
 	int scoremax = 9999;
 	int timekeeper = 0;
 	Texture2D texture = LoadTexture("Resources/BobtheRobot.png");
@@ -51,7 +54,7 @@ int main()
 			time = time - GetFrameTime();
 			{
 				
-				if (time < 240 && time > 0) {
+				if (time < 120 && time > 0) {
 					float mouseYaxis = GetMouseY();
 					float mouseXaxis = GetMouseX();
 					//Update
@@ -106,17 +109,26 @@ int main()
 					
 					if (scoremin >= 100 && scoremin < scoremax && scoremin != scoremax && CheckCollisionPointCircle({ mouseXaxis,mouseYaxis }, { 782,22 }, 10)) {
 						if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-							add10 = true;
+							add10Lv1 = true;
+							if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON && add10Lv1 == true)) {
+								add10Lv2 = true;
+							}
 						}
 					}
 					if (scoremin >= 2500 && scoremin < scoremax && scoremin != scoremax && CheckCollisionPointCircle({ mouseXaxis,mouseYaxis }, { 779,63 }, 20)) {
 						if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-							add150 = true;
+							add150Lv1 = true;
+							if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON && add150Lv1 == true)) {
+								add150Lv2 = true;
+							}
 						}
 					}
 					if (scoremin >= 5150 && scoremin < scoremax && scoremin != scoremax && CheckCollisionPointCircle({ mouseXaxis,mouseYaxis }, { 775,81 }, 4)) {
 						if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-							add500 = true;
+							add500Lv1 = true;
+							if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON && add500Lv1 == true)) {
+								add150Lv2 = true;
+							}
 						}
 					}
 
@@ -126,24 +138,45 @@ int main()
 					//----------------------------------------------------------------------------------
 				}
 
-				if (add10 == true) {
+				if (add10Lv1 == true) {
 					int testTime = (int)GetTime();
 					if (testTime >= timekeeper + 1) {
 						scoremin = scoremin + rand() % 50;
 						timekeeper = testTime;
 					}
 				}
-				if (add150 == true) {
+				if (add10Lv2 == true) {
+					int testTime = (int)GetTime();
+					if (testTime >= timekeeper + 1) {
+						scoremin = scoremin + rand() % 100;
+						timekeeper = testTime;
+					}
+				}
+				if (add150Lv1 == true) {
 					int testTime = (int)GetTime();
 					if (testTime >= timekeeper + 1) {
 						scoremin = scoremin + rand() % 150;
 						timekeeper = testTime;
 					}
 				}
-				if (add500 == true) {
+				if (add150Lv2 == true) {
+					int testTime = (int)GetTime();
+					if (testTime >= timekeeper + 1) {
+						scoremin = scoremin + rand() % 300;
+						timekeeper = testTime;
+					}
+				}
+				if (add500Lv1 == true) {
 					int testTime = (int)GetTime();
 					if (testTime >= timekeeper + 1) {
 						scoremin = scoremin + rand() % 500;
+						timekeeper = testTime;
+					}
+				}
+				if (add500Lv2 == true) {
+					int testTime = (int)GetTime();
+					if (testTime >= timekeeper + 1) {
+						scoremin = scoremin + rand() % 750;
 						timekeeper = testTime;
 					}
 				}
